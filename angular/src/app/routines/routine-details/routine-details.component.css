@@ -1,0 +1,9 @@
+.routine-content {
+    position: fixed;
+    top: 27px;
+    left: -68px;
+    right: 20px;
+    max-width: calc(100% - 1219px);
+    overflow-x: auto;
+    color: var(--principal);
+}

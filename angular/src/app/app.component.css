@@ -1,0 +1,21 @@
+.content {
+  margin-left: 0;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+/* .bg-dark {
+  background-color: #15202b !important;
+} */
+
+a {
+  color: var(--principal);
+}
+
+a:hover {
+  color: var(--principal);
+}
+
+.suggestions {
+  display: none;
+}

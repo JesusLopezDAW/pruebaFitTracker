@@ -1,0 +1,98 @@
+:root {
+    --background-color: #000000; /* Fondo de los componentes de la pagina */
+    --text-color: #FFFFFF; /* Color los textos de la pagina */
+    --border-color: #2F3336; /* Color de los bordes de la pagina */
+    --background-input: #262626; /* Color del fondo de los inputs */
+    --principal: #1A8CD8; /* Color principal de la pagina */
+}
+
+body {
+    background-color: var(--background-color) !important;
+    color: var(--text-color) !important;
+    border-color: var(--border-color) !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Estilos generales */
+.bg-dark {
+    background-color: var(--background-color) !important;
+}
+
+.text-light,
+* {
+    color: var(--text-color);
+}
+
+/* Textos */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span,
+div,
+a,
+li,
+dt,
+dd {
+    color: var(--text-color);
+}
+
+/* NavBar */
+.navbar-dark.bg-dark {
+    background-color: var(--background-color) !important;
+}
+
+.navbar-nav .nav-item .nav-link {
+    display: flex;
+    align-items: center;
+    /* color: var(--text-color) !important; */
+}
+
+.navbar-nav .nav-item .nav-link .icon-container {
+    width: 30px;
+    margin-right: 20px;
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+    background-color: var(--background-input) !important;
+    border-radius: 25px;
+}
+
+.navbar-nav .nav-item .nav-link .fas {
+    background-color: transparent;
+    padding: 5px;
+    border-radius: 50%;
+}
+
+/* Fuente y tamaños de letra */
+p,
+li,
+span,
+a {
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+h2 {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+h3 {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.small-text {
+    font-size: 12px;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

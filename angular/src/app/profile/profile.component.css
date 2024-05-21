@@ -1,0 +1,81 @@
+h2 {
+    font-size: 1.5rem;
+    margin-top: 1rem;
+}
+
+hr {
+    /* width: 3px; */
+    height: 5px;
+    /* Ajusta el grosor aquí */
+    background-color: var(--border-color);
+    /* Ajusta el color aquí */
+    border: none;
+    /* Elimina el borde por defecto */
+    /* border-color: var(--border-color); */
+}
+
+.text-dark {
+    color: var(--text-color) !important;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+a.text-dark:hover {
+    color: var(--principal) !important;
+}
+
+.btn-outline-primary {
+    background-color: var(--background-input);
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--principal);
+    color: var(--text-color);
+}
+
+/* Añadir espaciado a los elementos de la navbar */
+.d-flex.justify-content-between.align-items-center h2 {
+    margin-right: auto;
+}
+
+.d-flex.justify-content-start.align-items-center span {
+    margin-right: 20px;
+}
+
+.mt-3 {
+    margin-top: 1rem !important;
+}
+
+.ml-2 {
+    margin-left: 0.5rem !important;
+}
+
+/* Estilo del icono en los enlaces de navegación */
+a.routerLink .fas {
+    margin-right: 5px;
+}
+
+.content-profile {
+    margin-left: 23%;
+}
+
+.profileOptions {
+    margin-top: 2%;
+    border-top: 2px solid var(--border-color);
+    padding-top: 2%;
+    /* border-width: 1px; */
+}
+
+.profileOptions a {
+    font-size: 16px;
+    color: #71767B!important;
+    text-decoration: none;
+}
+
+.profileOptions a.active {
+    font-weight: bold;
+    color: var(--text-color) !important;
+    border-bottom: 2px solid var(--principal);
+}
