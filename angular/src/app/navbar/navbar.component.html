@@ -1,7 +1,7 @@
 <!-- Navbar para escritorio -->
 <div class="navbar-desktop navbar navbar-expand-lg navbar-dark bg-dark flex-column p-3"
     [ngStyle]="{ width: isSearchActive ? '85px' : '350px' }">
-    <a class="navbar-brand mb-3" routerLink="/"  style="padding-left: 10px;" id="divAppNavBar">
+    <a class="navbar-brand mb-3" routerLink="/" style="padding-left: 10px;" id="divAppNavBar">
         <h1 class="textAppNavBar">FitTracker</h1>
     </a>
     <ul class="navbar-nav flex-column w-100">
@@ -16,8 +16,7 @@
             </a>
         </li>
         <li class="nav-item mb-3 buscador-icon">
-            <a class="nav-link" [class.search-active]="isSearchActive"
-                (click)="toggleSearch()">
+            <a class="nav-link" [class.search-active]="isSearchActive" (click)="toggleSearch()">
                 <div class="icon-container" style="padding-left: 4px;">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </div>
@@ -97,9 +96,9 @@
             </a>
         </li>
     </ul>
-    <button class="btn btn-primary w-100 my-4 newWorkout" id="newWorkout" style="font-weight: bold;">
-        <span *ngIf="!isSearchActive">Nuevo entrenamiento</span>
-        <span *ngIf="isSearchActive"><i class="fa-solid fa-plus"></i></span>
+    <button class="btn btn-primary w-100 my-4 newWorkout" id="newWorkout">
+        <span>Nuevo entrenamiento</span>
+        <!-- <span *ngIf="isSearchActive"><i class="fa-solid fa-plus"></i></span> -->
     </button>
 </div>
 
@@ -110,38 +109,41 @@
         <br>
         <div class="search-input-wrapper">
             <i class="fa-solid fa-magnifying-glass search-icon" *ngIf="!isInputFocused"></i>
-            <input type="text" placeholder="Buscar" class="search-input" (focus)="onInputFocus()"
-                (blur)="onInputBlur()">
+            <input type="text" placeholder="Buscar" class="search-input" (focus)="onInputFocus()" (blur)="onInputBlur()"
+                (input)="onInputChange($event)">
             <i class="fa-solid fa-xmark clear-input" (click)="clearSearchInput()" *ngIf="isInputFocused"></i>
         </div>
         <hr>
         <div class="search-results">
-            <p>Usuario 1</p>
-            <p>Usuario 2</p>
-            <p>Usuario 3</p>
-            <p>Usuario 4</p>
-            <p>Usuario 5</p>
+            <div *ngFor="let user of users" class="user-container">
+                <!-- <a routerLink="/profile{{user.id}}" style="cursor: pointer;"> -->
+                    <img src="{{ user.profile_photo_path }}" alt="" class="user-image">
+                    <p class="user-name">{{ user.name }}</p>
+                <!-- </a> -->
+            </div>
         </div>
     </div>
 </div>
 
 <!-- Navbar para móvil -->
 <div class="navbar-mobile navbar navbar-expand-lg navbar-dark bg-dark justify-content-between fixed-bottom d-lg-none">
-    <a class="nav-link" routerLink="/profile" routerLinkActive="active">
-        <i class="fas fa-user"></i>
-    </a>
     <a class="nav-link" routerLink="/" routerLinkActive="active">
         <i class="fas fa-home"></i>
     </a>
-    <a class="nav-link" routerLink="/explore" routerLinkActive="active">
+    <!-- <a class="nav-link" routerLink="/explore" routerLinkActive="active">
         <i class="fas fa-search"></i>
+    </a> -->
+    <a class="nav-link" routerLink="/routines" routerLinkActive="active">
+        <i class="fa-solid fa-dumbbell"></i>
     </a>
-    <a class="nav-link" routerLink="/notifications" routerLinkActive="active">
-        <i class="fas fa-bell"></i>
+    <a class="nav-link" routerLink="/profile" routerLinkActive="active">
+        <i class="fas fa-user"></i>
     </a>
-    <a class="nav-link" routerLink="/messages" routerLinkActive="active">
-        <i class="fas fa-envelope"></i>
-    </a>
+</div>
+
+<!-- Navbar para móvil/tableta en la parte superior -->
+<div class="navbar-mobile-top navbar navbar-expand-lg navbar-dark bg-dark justify-content-center d-lg-none">
+    <span class="navbar-text">{{ currentSection }}</span>
 </div>
 
 <!-- Recuadro de cambiar aspecto -->
@@ -167,7 +169,8 @@
     <div class="theme-option">
         <span>Noche clara</span>
         <label class="switch">
-            <input type="radio" name="theme" (change)="changeTheme('media_noche')" [checked]="currentTheme === 'media_noche'">
+            <input type="radio" name="theme" (change)="changeTheme('media_noche')"
+                [checked]="currentTheme === 'media_noche'">
             <span class="slider"></span>
         </label>
     </div>

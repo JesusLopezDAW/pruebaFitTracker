@@ -1,9 +1,16 @@
 :root {
-    --background-color: #000000; /* Fondo de los componentes de la pagina */
-    --text-color: #FFFFFF; /* Color los textos de la pagina */
-    --border-color: #2F3336; /* Color de los bordes de la pagina */
-    --background-input: #262626; /* Color del fondo de los inputs */
-    --principal: #1A8CD8; /* Color principal de la pagina */
+    --background-color: #000000;
+    /* Fondo de los componentes de la pagina */
+    --text-color: #FFFFFF;
+    /* Color los textos de la pagina */
+    --border-color: #2F3336;
+    /* Color de los bordes de la pagina */
+    --background-input: #262626;
+    /* Color del fondo de los inputs */
+    --principal: #4169E1;
+    /* Color principal de la pagina */
+    --navbar-width: 350px;
+    /* Define el ancho del navbar */
 }
 
 body {
@@ -12,6 +19,19 @@ body {
     border-color: var(--border-color) !important;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    /* Ocultar barras de desplazamiento del body */
+}
+
+/* ------------------------------------------------------- */
 
 /* Estilos generales */
 .bg-dark {
@@ -38,33 +58,6 @@ li,
 dt,
 dd {
     color: var(--text-color);
-}
-
-/* NavBar */
-.navbar-dark.bg-dark {
-    background-color: var(--background-color) !important;
-}
-
-.navbar-nav .nav-item .nav-link {
-    display: flex;
-    align-items: center;
-    /* color: var(--text-color) !important; */
-}
-
-.navbar-nav .nav-item .nav-link .icon-container {
-    width: 30px;
-    margin-right: 20px;
-}
-
-.navbar-nav .nav-item .nav-link:hover {
-    background-color: var(--background-input) !important;
-    border-radius: 25px;
-}
-
-.navbar-nav .nav-item .nav-link .fas {
-    background-color: transparent;
-    padding: 5px;
-    border-radius: 50%;
 }
 
 /* Fuente y tamaños de letra */
@@ -94,5 +87,101 @@ h3 {
 .small-text {
     font-size: 12px;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* ------------------ */
+
+/* 
+.navbar-mobile {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.navbar-mobile .nav-link {
+    flex: 1;
+    text-align: center;
+} */
+
+@media (max-width: 1439px) {
+
+    .main-content {
+        left: 100px !important;
+    }
+
+    .routines-content {
+        position: fixed !important;
+        top: 27px !important;
+        left: 156px !important;
+        right: 20px !important;
+        max-width: calc(130% - 332px) !important;
+        overflow-x: auto !important;
+        color: var(--principal) !important;
+    }
+}
+
+@media (max-width: 1340px) {}
+
+@media (max-width: 1200px) {
+    #divRoutines {
+        width: 50%;
+    }
+}
+
+@media (max-width: 992px) {}
+
+@media (max-width: 880px) {}
+
+@media (max-width: 836px) {
+
+    .routines-content {
+        /* Para asegurarte de que se restablezca a col-md-4 cuando la pantalla sea mayor a 1200px */
+        width: 100% !important;
+        top: 27px !important;
+        left: 73px !important;
+        max-width: calc(100%) !important;
+    }
+
+    .main-content {
+        left: 0px !important;
+    }
+}
+
+@media (max-width: 770px) {
+
+    #divRoutines {
+        width: 100%;
+    }
+
+    .routines-content {
+        right: 0 !important;
+        left: 65px !important;
+        max-width: calc(100%) !important;
+    }
+}
+
+@media (max-width: 768px) {
+
+    #titleRoutine {
+        display: none;
+    }
+
+    .navbar-text {
+        font-size: 1.2rem;
+        text-align: center;
+        /* Asegúrate de que el texto esté centrado */
+    }
+
+    .newRoutine {
+        width: 100%;
+        margin-left: -0.05% !important;
+    }
+
+}
+
+@media (max-width: 764px) {
+
+    .routines-content {
+        left: 0px !important;
+        max-width: calc(89%) !important;
+    }
+}

@@ -1,103 +1,81 @@
-.container-fluid {
+/* .container-fluid {
     padding: 0;
     background-color: var(--background-color);
-}
+} */
 
-.col-2,
-.col-8 {
-    padding: 0;
-}
+/* .home-content {
+    position: fixed;
+    top: 27px;
+    left: 436px;
+    right: 20px;
+    max-width: calc(100% - 332px);
+    overflow-x: auto;
+    color: var(--principal);
+} */
 
-.posts-section {
+/* .posts-section {
+    position: fixed;
+    top: 0;
+    left: 190px;
+    max-height: calc(100vh);
+    overflow-y: scroll;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-left: 6%;
+    margin-left: 12.5%;
+    margin-top: 54px;
 }
+
+.posts-section::-webkit-scrollbar {
+    display: none;
+}
+
+.posts-section {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+} */
 
 .tabs-container {
     display: flex;
-    width: 58.5%;
-    margin-left: -200px;
+    justify-content: center;
+    /* Centra horizontalmente los elementos */
+    width: 74vh;
 }
 
 .tab-button {
-    position: relative;
-    /* Para posicionar la línea absolutamente */
     background-color: transparent;
     border: none;
-    padding: 10px 20px;
+    padding: 10px 120px;
     cursor: pointer;
     color: var(--text-color);
     outline: none;
     transition: background-color 0.3s;
-    flex: 1;
-    /* Cada botón ocupa el 50% del contenedor */
     text-align: center;
 }
 
 .tab-button span {
     font-size: 17px;
-    /* Tamaño de letra deseado */
 }
 
 .tab-button.active span {
     border-bottom: 3px solid var(--principal);
-    /* Línea debajo del texto */
     width: 120%;
-    /* La línea tiene el 100% del ancho del texto */
     padding-bottom: 7px;
-    /* Agrega más margen entre la línea y el texto */
-
 }
 
 .tab-button:hover {
     background-color: var(--background-input);
-    /* Color de fondo al pasar el ratón */
 }
 
-.right-sidebar {
-    width: 400px;
-    flex: 1;
-    padding: 20px;
-    margin-left: -15%;
-    /* border-left: 1px solid #ccc; */
-}
+/* .right-sidebar {
+    background-color: var(--background-color);
+    margin-left: 78%;
+    margin-right: 10%;
+    width: 27%;
+} */
 
-@media (max-width: 1439px) {
-    .posts-section{
-        margin-left: -5% !important;
-    }
-
-    .right-sidebar{
-        margin-left: -12% !important;
-    }
-}
-
-@media (max-width: 1200px) {
-    .posts-section{
-        margin-left: 12% !important;
-    }
-
-    .right-sidebar{
-        display: none;
-    }
-}
-
-@media (max-width: 992px) {
-    .posts-section{
-        margin-left: 15% !important;
-    }
-}
-@media (max-width: 880px) {
-    .posts-section{
-        margin-left: 34% !important;
-    }
-}
-
-@media (max-width: 836px) {
-
-    .posts-section{
-        margin-left: 31% !important;
-    }
+.posts {
+    overflow-y: scroll;
+    margin-left: 14%;
+    height: calc(100vh);
 }

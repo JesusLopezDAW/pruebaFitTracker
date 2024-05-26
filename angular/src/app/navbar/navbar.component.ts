@@ -1,7 +1,6 @@
-import { Component, Renderer2, HostListener } from '@angular/core';
-import { CommonModule, DOCUMENT } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { Inject } from '@angular/core';
+import { Component, Renderer2, Inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -11,31 +10,43 @@ import { Inject } from '@angular/core';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
+  users: any[] = []; // Define una matriz para almacenar los usuarios
   showSettingsOptions = false;
   showThemeSettings = false;
-  isSearchActive = false; // Inicializado como un booleano
-  currentTheme: string = 'oscuro'; // Tema inicial
+  isSearchActive = false;
+  currentTheme: string = 'oscuro';
   isInputFocused = false;
+  private isBrowser: boolean;
+  currentSection: string = '';
 
-  constructor(private renderer: Renderer2, @Inject(DOCUMENT) private document: Document) {
+  constructor(
+    private renderer: Renderer2,
+    @Inject(DOCUMENT) private document: Document,
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {
+    this.isBrowser = isPlatformBrowser(platformId);
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.updateCurrentSection(event.urlAfterRedirects);
+      }
+    });
     this.document.addEventListener('click', (event) => {
-      // Si se hace click fuera del div del buscador se cierra el buscador
       const searchComponent = (event.target as HTMLElement).closest('.search-component');
       const iconComponent = (event.target as HTMLElement).closest('.buscador-icon');
       if (searchComponent === null && this.isSearchActive && iconComponent === null) {
         this.toggleSearch();
       }
-      
-      // Si se hace click fuera del div de opciones se cierra
+
       const themeComponent = (event.target as HTMLElement).closest('.theme-settings');
       const cambiarAspectoComponent = (event.target as HTMLElement).closest('.cambiarAspecto');
-      if(this.showThemeSettings && themeComponent === null && cambiarAspectoComponent === null){
+      if (this.showThemeSettings && themeComponent === null && cambiarAspectoComponent === null) {
         this.toggleThemeSettings();
       }
-      // Si se hace click fuera del div de cambiar tema se cierra
+
       const settingsComponent = (event.target as HTMLElement).closest('.settings-menu');
       const settingsIconComponent = (event.target as HTMLElement).closest('.settings-icon');
-      if(this.showSettingsOptions && settingsComponent === null && settingsIconComponent === null){
+      if (this.showSettingsOptions && settingsComponent === null && settingsIconComponent === null) {
         this.toggleDropdown();
       }
     });
@@ -44,12 +55,16 @@ export class NavbarComponent {
   toggleSearch() {
     this.isSearchActive = !this.isSearchActive;
     const iconApp = this.document.getElementById("divAppNavBar") as HTMLElement;
-    if(this.isSearchActive){
+    const newWorkout = this.document.getElementById("newWorkout") as HTMLElement;
+    if (this.isSearchActive) {
       iconApp.innerHTML = '<img src="../../assets/icons/logoBlancoNavBar.png" alt="Logo" class="d-inline-block align-top imagenAppNavBar" style="width: 45px; height: 35px; margin-left: 144px; margin-top: 5px; margin-bottom: -10px;">';
-    }else{
+      newWorkout.innerHTML = "<i class='fa-solid fa-plus'></i>";
+    } else {
       if (window.innerWidth < 1440) {
+        newWorkout.innerHTML = "<i class='fa-solid fa-plus'></i>";
         iconApp.innerHTML = '<img src="../../assets/icons/logoBlancoNavBar.png" alt="Logo" class="d-inline-block align-top imagenAppNavBar" style="width: 45px; height: 35px; margin-left: 144px; margin-top: 5px; margin-bottom: -10px;">';
-      }else{
+      } else {
+        newWorkout.innerHTML = "<span>Nuevo entrenamiento</span>";
         iconApp.innerHTML = '<h1 style="font-family: Dancing Script; padding-left: 0px; font-size: 42px; margin-bottom: -2px">FitTracker</h1>';
       }
     }
@@ -74,15 +89,45 @@ export class NavbarComponent {
     this.isInputFocused = false;
   }
 
+  onInputChange = async (event: Event) => {
+    const input = event.target as HTMLInputElement;
+    console.log(input.value);
+
+    if (input.value.length > 2) {
+      const baseUrl = "http://localhost/api/search/user";
+      const queryParam = encodeURIComponent(input.value);
+      const url = `${baseUrl}?query=${queryParam}`;
+
+      try {
+        const response = await fetch(url, {
+          method: "GET",
+          headers: {
+            "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0L2FwaS9sb2dpbiIsImlhdCI6MTcxNjY3ODE0OSwiZXhwIjoxNzE2NzYzMzQ5LCJuYmYiOjE3MTY2NzgxNDksImp0aSI6IkZiYjJSbXgzc09zZkU1cWUiLCJzdWIiOiIyIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.P6uiqbAuWGad8wq9BnoepsVpiEcBWfgWVnPu3gG64DM",
+            "Content-Type": "application/json"
+          }
+        });
+
+        if (response.ok) {
+          const responseData = await response.json();
+          console.log(responseData.data);
+          this.users = responseData.data; // Asigna los usuarios a la matriz
+        } else {
+          console.error('Error en la respuesta de la petición:', response.statusText);
+        }
+      } catch (error) {
+        console.error('There has been a problem with your fetch operation:', error);
+      }
+    }
+  }
+
   toggleDropdown() {
-    console.log(this.showSettingsOptions);
     this.showSettingsOptions = !this.showSettingsOptions;
-    this.showThemeSettings = false; // Oculta los ajustes de tema si se muestra el dropdown
+    this.showThemeSettings = false;
   }
 
   toggleThemeSettings() {
     this.showThemeSettings = !this.showThemeSettings;
-    this.showSettingsOptions = false; // Oculta el dropdown si se muestran los ajustes de tema
+    this.showSettingsOptions = false;
   }
 
   changeTheme(theme: string) {
@@ -112,6 +157,34 @@ export class NavbarComponent {
         root.style.setProperty('--text-color', '#000000');
         root.style.setProperty('--border-color', '#DBDBDB');
         break;
+    }
+  }
+
+  updateCurrentSection(url: string) {
+    switch (url) {
+      case '/':
+        this.currentSection = 'Inicio';
+        break;
+      case '/routines':
+        this.currentSection = 'Rutinas';
+        break;
+      case '/notifications':
+        this.currentSection = 'Ejercicios';
+        break;
+      case '/messages':
+        this.currentSection = 'Mensajes';
+        break;
+      case '/communities':
+        this.currentSection = 'Comunidades';
+        break;
+      case '/premium':
+        this.currentSection = 'Premium';
+        break;
+      case '/profile':
+        this.currentSection = 'Perfil';
+        break;
+      default:
+        this.currentSection = 'FitTracker';
     }
   }
 }
